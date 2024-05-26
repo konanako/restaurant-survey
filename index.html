@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Location</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            background-color: #f9f9f9;
+        }
+        #map {
+            width: 100%;
+            max-width: 600px;
+            height: 400px;
+            margin: 20px 0;
+        }
+        #coordinates, #questions {
+            margin: 20px;
+            font-size: 18px;
+        }
+        .confirm-button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .confirm-button:hover {
+            background-color: #0056b3;
+        }
+        #pac-input {
+            margin-top: 10px;
+            padding: 10px;
+            width: 80%;
+            max-width: 500px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        #feedback {
+            width: 80%;
+            max-width: 500px;
+            height: 100px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            resize: none;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Select Location</h1>
+<input id="pac-input" class="controls" type="text" placeholder="Search for a location">
+<div id="map"></div>
+<div id="coordinates">
+    <p>Location Name: <span id="location-name">N/A</span></p>
+    <p>Latitude: <span id="lat">N/A</span></p>
+    <p>Longitude: <span id="lng">N/A</span></p>
+</div>
+<div id="questions">
+    <p>Rate your experience (1 to 5): 
+        <select id="rating">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+    </p>
+    <p>Additional Feedback (max 500 chars):</p>
+    <textarea id="feedback" maxlength="500"></textarea>
+</div>
+<button class="confirm-button" onclick="confirmLocation()">Confirm Location</button>
+
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-analytics.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+    apiKey: "AIzaSyBXALr5tF-Tj7zBalBSeX-yVEix_f35pW8",
+    authDomain: "restaurant-survey-5c379.firebaseapp.com",
+    databaseURL: "https://restaurant-survey-5c379-default-rtdb.firebaseio.com",
+    projectId: "restaurant-survey-5c379",
+    storageBucket: "restaurant-survey-5c379.appspot.com",
+    messagingSenderId: "758872683752",
+    appId: "1:758872683752:web:b571e9b8e11b91709e455d",
+    measurementId: "G-DG43F9Q0EE"
+  };
+  
+    // Initialize Firebase
+    // const app = initializeApp(firebaseConfig);
+    // const analytics = getAnalytics(app);
+
+    firebase.initializeApp(firebaseConfig);
+  </script>
+
+<script>
+    let map;
+    let marker;
+    let infowindow;
+
+    function initMap() {
+        const defaultLocation = { lat: 35.665, lng: 139.781 };
+        map = new google.maps.Map(document.getElementById("map"), {
+            center: defaultLocation,
+            zoom: 8,
+        });
+
+        marker = new google.maps.Marker({
+            position: defaultLocation,
+            map: map,
+            draggable: true,
+        });
+
+        infowindow = new google.maps.InfoWindow();
+
+        const input = document.getElementById("pac-input");
+        const searchBox = new google.maps.places.SearchBox(input);
+
+        map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
+
+        map.addListener("bounds_changed", () => {
+            searchBox.setBounds(map.getBounds());
+        });
+
+        searchBox.addListener("places_changed", () => {
+            const places = searchBox.getPlaces();
+
+            if (places.length == 0) {
+                return;
+            }
+
+            marker.setVisible(false);
+
+            const bounds = new google.maps.LatLngBounds();
+            places.forEach(place => {
+                if (!place.geometry || !place.geometry.location) {
+                    console.log("Returned place contains no geometry");
+                    return;
+                }
+
+                marker.setPosition(place.geometry.location);
+                marker.setVisible(true);
+
+                document.getElementById("location-name").textContent = place.name;
+                document.getElementById("lat").textContent = place.geometry.location.lat();
+                document.getElementById("lng").textContent = place.geometry.location.lng();
+
+                if (place.geometry.viewport) {
+                    bounds.union(place.geometry.viewport);
+                } else {
+                    bounds.extend(place.geometry.location);
+                }
+            });
+            map.fitBounds(bounds);
+        });
+
+        google.maps.event.addListener(marker, 'dragend', function(event) {
+            document.getElementById("lat").textContent = event.latLng.lat();
+            document.getElementById("lng").textContent = event.latLng.lng();
+        });
+    }
+
+    function confirmLocation() {
+        const locationName = document.getElementById("location-name").textContent;
+        const lat = document.getElementById("lat").textContent;
+        const lng = document.getElementById("lng").textContent;
+        const rating = document.getElementById("rating").value;
+        const feedback = document.getElementById("feedback").value;
+
+        const data = {
+            locationName,
+            latitude: lat,
+            longitude: lng,
+            rating,
+            feedback
+        };
+
+        // Send data to Firebase
+        firebase.database().ref('locations').push(data)
+            .then(() => {
+                alert('Location data saved successfully!');
+            })
+            .catch((error) => {
+                console.error('Error saving data:', error);
+            });
+    }
+</script>
+
+<!-- Replace YOUR_API_KEY with your actual Google Maps API key -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4Rhihf6YWisKD2VP0bh2Avwouyo4JOTI&libraries=places&callback=initMap" async defer></script>
+
+<!-- Include Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-database-compat.js"></script>
+
+</body>
+</html>
