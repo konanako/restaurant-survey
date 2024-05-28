@@ -86,8 +86,8 @@
                     </select>
                 </div>    <br>
      <div class="form-group">
-                    <label for="price-range">価格帯を選んでください:</label>
-                　　    <select name="price-range" id="price-range" required>
+                    <label for="pricerange">価格帯を選んでください:</label>
+                　　    <select name="price_range" id="price_range" required>
                         <option value="2000">2000円代</option>
                         <option value="3000">3000円代</option>
                         <option value="4000">4000円代</option>
@@ -96,16 +96,16 @@
                     </select>
                 </div>     <br>
      <div class="form-group">
-                    <label for="seat-type">席のタイプを選んでください:</label>
-                　　    <select name="seat-type" id="seat-type" required>
+                    <label for="seat_type">席のタイプを選んでください:</label>
+                　　    <select name="seat_type" id="seat_type" required>
                         <option value="koshitsu">個室あり</option>
                         <option value="nashi">個室なし</option>
                         <option value="hannkoshitsu">半個室あり</option>
                     </select>
                 </div>    <br>
      <div class="form-group">
-                    <label for="reservation-style">予約方法を選んでください:</label>
-                　　    <select name="reservation-style" id="reservation-style" required>
+                    <label for="reservation_style">予約方法を選んでください:</label>
+                　　    <select name="reservation_style" id="reservation_style" required>
                         <option value="web">Web予約</option>
                         <option value="call">電話予約</option>
                         <option value="non">予約不可</option>
@@ -130,19 +130,19 @@
                     </select>
                 </div>   <br>
      <div class="form-group">
-                    <label for="spend-time">滞在可能時間を選んでください:</label>
-                　　    <select name="spend-time" id="spend-time" required>
+                    <label for="spend_time">滞在可能時間を選んでください:</label>
+                　　    <select name="spend_time" id="spend_time" required>
                         <option value="1h">1時間</option>
                         <option value="1.5h">1.5時間</option>
                         <option value="2h">2時間</option>
-                        <option value="2.5h">２.5時間</option>
+                        <option value="2.5h">2.5時間</option>
                         <option value="3h">3時間以上</option>
                         <option value="non-limit">制限なし</option>
                     </select>
                 </div>          <br> 
      <div class="form-group">
-                    <label for="mein-alcohol">お店のメインのお酒を選んでください:</label>
-                　　    <select name="mein-alcohol" id="mein-alcohol" required>
+                    <label for="main_alcohol">お店のメインのお酒を選んでください:</label>
+                　　    <select name="main_alcohol" id="main_alcohol" required>
                         <option value="nihonshu">日本酒</option>
                         <option value="bear">ビール</option>
                         <option value="wine">ワイン</option>
@@ -160,20 +160,20 @@
                     </select>
                 </div>   <br>
      <div class="form-group">
-                    <label for="close-hour">閉店時間を選んでください:</label>
-                　　    <select name="close-hour" id="close-hour" required>
+                    <label for="close_hour">閉店時間を選んでください:</label>
+                　　    <select name="close_hour" id="close_hour" required>
                         <option value="19ｈ">19時</option>
                         <option value="20ｈ">20時</option>
-                        <option value="２１ｈ">21時</option>
-                        <option value="２２ｈ">22時</option>
-                        <option value="２３ｈ">23時</option>
-                        <option value="２４ｈ">24時</option>
-                        <option value="after２４ｈ">24時以降</option>
+                        <option value="21ｈ">21時</option>
+                        <option value="22ｈ">22時</option>
+                        <option value="23ｈ">23時</option>
+                        <option value="24ｈ">24時</option>
+                        <option value="after24ｈ">24時以降</option>
                     </select>
                 </div>      <br>
      <div class="form-group">
-                    <label for="manue">コースの有無を選んでください:</label>
-                　　    <select name="manue" id="manue" required>
+                    <label for="menue">コースの有無を選んでください:</label>
+                　　    <select name="menue" id="menue" required>
                         <option value="ari-seat">あり（席だけ予約可）</option>
                         <option value="ari-nonseat">あり（席だけ予約不可）</option>
                         <option value="nashi">なし</option>
@@ -302,6 +302,18 @@
         const locationName = document.getElementById("location-name").textContent;
         const lat = document.getElementById("lat").textContent;
         const lng = document.getElementById("lng").textContent;
+        const genre = document.getElementById("genre").value;
+        const price_range = document.getElementById("price_range").value;
+        const seat_type = document.getElementById("seat-type").value;
+        const reservation_style = document.getElementById("reservation_style").value;
+        const area = document.getElementById("area").value;
+        const tabaco = document.getElementById("tabaco").value;
+        const spend_time = document.getElementById("spend_time").value;
+        const main_alcohol = document.getElementById("main_alcohol").value;
+        const drink = document.getElementById("drink").value;
+        const close_hour = document.getElementById("close_hour").value;
+        const menue = document.getElementById("menue").value;
+        const situation = document.getElementById("situation").value;
         const rating = document.getElementById("rating").value;
         const feedback = document.getElementById("feedback").value;
 
@@ -309,6 +321,18 @@
             locationName,
             latitude: lat,
             longitude: lng,
+            genre,
+            price_range,
+            seat_type,
+            reservation_style,
+            area,
+            tabaco,
+            spend_time,
+            main_alcohol,
+            drink,
+            close_hour,
+            menue,
+            situation,
             rating,
             feedback
         };
