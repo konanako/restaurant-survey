@@ -86,7 +86,7 @@
                     </select>
                 </div>    <br>
      <div class="form-group">
-                    <label for="pricerange">価格帯を選んでください:</label>
+                    <label for="price_range">価格帯を選んでください:</label>
                 　　    <select name="price_range" id="price_range" required>
                         <option value="2000">2000円代</option>
                         <option value="3000">3000円代</option>
@@ -225,8 +225,8 @@
   };
   
     // Initialize Firebase
-    // const app = initializeApp(firebaseConfig);
-    // const analytics = getAnalytics(app);
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
 
     firebase.initializeApp(firebaseConfig);
   </script>
@@ -266,7 +266,7 @@
             if (places.length == 0) {
                 return;
             }
-
+            
             marker.setVisible(false);
 
             const bounds = new google.maps.LatLngBounds();
