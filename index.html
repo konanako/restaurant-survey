@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>お店を選んでください</title>
+    <title>飲食店評価アンケート</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -59,25 +59,147 @@
 </head>
 <body>
 
-<h1>お店を選んでください</h1>
-<input id="pac-input" class="controls" type="text" placeholder="Search for a location">
-<div id="map" style="width: 800px; height: 800px;></div>
-<div id="coordinates">
-    <p>Location Name: <span id="location-name">N/A</span></p>
-    <p>Latitude: <span id="lat">N/A</span></p>
-    <p>Longitude: <span id="lng">N/A</span></p>
-</div>
-<div id="questions">
-    <p>Rate your experience (1 to 5): 
-        <select id="rating">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-        </select>
-    </p>
-    <p>Additional Feedback (max 500 chars):</p>
+    <h1>飲食店評価アンケート</h1>
+    <input id="pac-input" class="controls" type="text" placeholder="Search for a location">
+    <div id="map" style="width: 800px; height: 800px;></div>
+    <div id="coordinates">
+        <p>Location Name: <span id="location-name">N/A</span></p>
+        <p>Latitude: <span id="lat">N/A</span></p>
+        <p>Longitude: <span id="lng">N/A</span></p>
+    </div>
+    <div class="form-group">
+                    <label for="genre">ジャンルを選んでください:</label>
+                    <select name="genre" id="genre" required>
+                        <option value="sashimi">お刺身</option>
+                        <option value="yakitori">焼き鳥</option>
+                        <option value="okonomiyaki">お好み焼き・もんじゃ</option>
+                        <option value="yakiniku">焼き肉</option>
+                        <option value="nabe_shabu">鍋・しゃぶしゃぶ</option>
+                        <option value="japanese">和食</option>
+                        <option value="italian">イタリアン</option>
+                        <option value="spanish">スペイン料理</option>
+                        <option value="southeast_asian">東南アジア料理</option>
+                        <option value="chinese">中華料理</option>
+                        <option value="korean">韓国料理</option>
+                        <option value="bar">バー</option>
+                        <option value="others">その他</option>
+                    </select>
+                </div>    <br>
+     <div class="form-group">
+                    <label for="price-range">価格帯を選んでください:</label>
+                　　    <select name="price-range" id="price-range" required>
+                        <option value="2000">2000円代</option>
+                        <option value="3000">3000円代</option>
+                        <option value="4000">4000円代</option>
+                        <option value="5000">5000円代</option>
+                        <option value="6000+">6000円以上</option>
+                    </select>
+                </div>     <br>
+     <div class="form-group">
+                    <label for="seat-type">席のタイプを選んでください:</label>
+                　　    <select name="seat-type" id="seat-type" required>
+                        <option value="koshitsu">個室あり</option>
+                        <option value="nashi">個室なし</option>
+                        <option value="hannkoshitsu">半個室あり</option>
+                    </select>
+                </div>    <br>
+     <div class="form-group">
+                    <label for="reservation-style">予約方法を選んでください:</label>
+                　　    <select name="reservation-style" id="reservation-style" required>
+                        <option value="web">Web予約</option>
+                        <option value="call">電話予約</option>
+                        <option value="non">予約不可</option>
+                    </select>
+                </div>     <br>
+     <div class="form-group">
+                    <label for="area">エリアを選んでください:</label>
+                　　    <select name="area" id="area" required>
+                        <option value="yurakucho">有楽町</option>
+                        <option value="kachidoki">勝どき</option>
+                        <option value="tukishima">月島</option>
+                        <option value="toyosu">豊洲</option>
+                    </select>
+                </div>       <br>
+     <div class="form-group">
+                    <label for="tabaco">タバコの可否を選んでください:</label>
+                　　    <select name="tabaco" id="tabaco" required>
+                        <option value="no-smork">禁煙</option>
+                        <option value="separete">分煙</option>
+                        <option value="smaork-ok">喫煙</option>
+                        <option value="humei">不明</option>
+                    </select>
+                </div>   <br>
+     <div class="form-group">
+                    <label for="spend-time">滞在可能時間を選んでください:</label>
+                　　    <select name="spend-time" id="spend-time" required>
+                        <option value="1h">1時間</option>
+                        <option value="1.5h">1.5時間</option>
+                        <option value="2h">2時間</option>
+                        <option value="2.5h">２.5時間</option>
+                        <option value="3h">3時間以上</option>
+                        <option value="non-limit">制限なし</option>
+                    </select>
+                </div>          <br> 
+     <div class="form-group">
+                    <label for="mein-alcohol">お店のメインのお酒を選んでください:</label>
+                　　    <select name="mein-alcohol" id="mein-alcohol" required>
+                        <option value="nihonshu">日本酒</option>
+                        <option value="bear">ビール</option>
+                        <option value="wine">ワイン</option>
+                        <option value="shochu">焼酎</option>
+                        <option value="wisky">ウィスキー</option>
+                        <option value="haiball">ハイボール</option>
+                        <option value="all">全般</option>
+                    </select>
+                </div>       <br>
+     <div class="form-group">
+                    <label for="drink">飲み放題の有無を選んでください:</label>
+                　　    <select name="drink" id="drink" required>
+                        <option value="ari">あり</option>
+                        <option value="nashi">なし</option>
+                    </select>
+                </div>   <br>
+     <div class="form-group">
+                    <label for="close-hour">閉店時間を選んでください:</label>
+                　　    <select name="close-hour" id="close-hour" required>
+                        <option value="19ｈ">19時</option>
+                        <option value="20ｈ">20時</option>
+                        <option value="２１ｈ">21時</option>
+                        <option value="２２ｈ">22時</option>
+                        <option value="２３ｈ">23時</option>
+                        <option value="２４ｈ">24時</option>
+                        <option value="after２４ｈ">24時以降</option>
+                    </select>
+                </div>      <br>
+     <div class="form-group">
+                    <label for="manue">コースの有無を選んでください:</label>
+                　　    <select name="manue" id="manue" required>
+                        <option value="ari-seat">あり（席だけ予約可）</option>
+                        <option value="ari-nonseat">あり（席だけ予約不可）</option>
+                        <option value="nashi">なし</option>
+                    </select>
+                </div>        <br>   
+      <div class="form-group">
+                    <label for="situation">シチュエーションを選んでください:</label>
+                　　    <select name="situation" id="situation" required>
+                        <option value="many-peop">大人数で宴会</option>
+                        <option value="few-peop">少人数で宴会</option>
+                        <option value="with-customer">接待</option>
+                        <option value="calm">落ち着いた雰囲気</option>
+                        <option value="high-sense">おしゃれな雰囲気</option>
+                    </select>
+                </div>        <br>                                                             
+    <div id="questions">
+        <p>総合評価を教えてください (1 〜 5): 
+        　  <select id="rating">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </p>
+        <p>備考 (最大 500字まで):</p>
     <textarea id="feedback" maxlength="500"></textarea>
 </div>
 <button class="confirm-button" onclick="confirmLocation()">Confirm Location</button>
