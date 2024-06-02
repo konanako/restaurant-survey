@@ -362,7 +362,8 @@
         const locationName = document.getElementById("location_name").textContent;
         const lat = document.getElementById("lat").textContent;
         const lng = document.getElementById("lng").textContent;
-        const genre = document.getElementById("genre").value;
+        const genreCheckboxes = document.querySelectorAll('.genre-options:checked');
+        const genres = Array.from(genreCheckboxes).map(checkbox => checkbox.value);
         const price_range = document.getElementById("price_range").value;
         const seat_type = document.getElementById("seat_type").value;
         const reservation_style = document.getElementById("reservation_style").value;
@@ -380,7 +381,7 @@
             locationName,
             latitude: lat,
             longitude: lng,
-            genre,
+            genres,
             price_range,
             seat_type,
             reservation_style,
