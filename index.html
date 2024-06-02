@@ -400,11 +400,32 @@
         firebase.database().ref('locations').push(data)
             .then(() => {
                 alert('Location data saved successfully!');
+                resetForm(); // フォームをリセット
             })
             .catch((error) => {
                 console.error('Error saving data:', error);
             });
     }
+    function resetForm() {
+            document.getElementById("location_name").textContent = "N/A";
+            document.getElementById("lat").textContent = "N/A";
+            document.getElementById("lng").textContent = "N/A";
+            document.getElementById("pac-input").value = "";
+            const checkboxes = document.querySelectorAll('.genre-options');
+            checkboxes.forEach(checkbox => checkbox.checked = false);
+            document.getElementById("price_range").selectedIndex = 0;
+            document.getElementById("seat_type").selectedIndex = 0;
+            document.getElementById("reservation_style").selectedIndex = 0;
+            document.getElementById("area").selectedIndex = 0;
+            document.getElementById("tabaco").selectedIndex = 0;
+            document.getElementById("spend_time").selectedIndex = 0;
+            document.getElementById("drink").selectedIndex = 0;
+            document.getElementById("close_hour").selectedIndex = 0;
+            document.getElementById("menue").selectedIndex = 0;
+            document.getElementById("situation").selectedIndex = 0;
+            document.getElementById("rating").selectedIndex = 0;
+            document.getElementById("feedback").value = "";
+        }
 </script>
 
 <!-- Replace YOUR_API_KEY with your actual Google Maps API key -->
