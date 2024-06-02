@@ -15,6 +15,26 @@
             height: 100vh;
             background-color: #f9f9f9;
         }
+        .form-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            width: 80%;
+            max-width: 500px;
+        }
+
+        .form-group label {
+            margin-right: 100px;
+            white-space: nowrap;
+            width: 150px; /* ラベルの幅を固定 */
+            text-align: right; /* ラベルのテキストを右揃え */
+        }
+
+        .form-group select {
+            flex: 1;
+            //margin-right: 100px;
+            width: 200px; /* 固定幅を設定 */
+        }
         #map {
             width: 100%;
             max-width: 600px;
@@ -23,7 +43,7 @@
         }
         #coordinates, #questions {
             margin: 20px;
-            font-size: 18px;
+            font-size: 16px;
         }
         .confirm-button {
             padding: 10px 20px;
@@ -55,6 +75,35 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             resize: none;
         }
+        .hidden {
+            display: none;
+        }
+        .checkbox-group {
+            max-width: 450px;
+            display: flex;
+            flex-wrap: wrap;
+            padding-left: 100px;
+            padding-right: 100px;
+            padding-bottom: 15px;
+        }
+        .checkbox-group label {
+            padding-right: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            width: auto; /* チェックボックスを一列に表示 */
+            margin-bottom: 5px;
+        }
+        .genre-container {
+          grid-template-columns: repeat(3, 1fr);
+          gap: 10px;
+          padding 10px;
+        }
+        .genre-options{
+            padding:10px;
+            text-align:center;
+            border-radius: 4px;
+            cursor:pointer;
+        }
     </style>
 </head>
 <body>
@@ -62,131 +111,138 @@
     <h1>飲食店評価アンケート</h1>
     <input id="pac-input" class="controls" type="text" placeholder="Search for a location">
     <div id="map" style="width: 800px; height: 800px;"></div>
-    <div id="coordinates">
-        <p>Location Name: <span id="location-name">N/A</span></p>
-        <p>Latitude: <span id="lat">N/A</span></p>
+    <div id="coordinates" class="hidden">
+        <p>Location Name: <span id="location_name">N/A</span></p>
+        <p>Latitude: <span id="lat" visibility=>N/A</span></p>
         <p>Longitude: <span id="lng">N/A</span></p>
     </div>
-    <div class="form-group">
-                    <label for="genre">ジャンルを選んでください:</label>
+ <label for="genre">ジャンル:</label><br>
+<div class="genre-container">        
+        <div class="checkbox-group">
+            <label><input type="checkbox" class="genre-options" name="genre" value="お刺身"> お刺身</label>
+            <label><input type="checkbox" class="genre-options" name="genre" value="焼き鳥"> 焼き鳥</label>
+            <label><input type="checkbox" class="genre-options" name="genre" value="お好み焼き・もんじゃ"> お好み焼き・もんじゃ</label>
+            <label><input type="checkbox" class="genre-options" name="genre" value="焼き肉"> 焼き肉</label>
+            <label><input type="checkbox" class="genre-options" name="genre" value="鍋・しゃぶしゃぶ"> 鍋・しゃぶしゃぶ</label>
+            <label><input type="checkbox" class="genre-options" name="genre" value="和食"> 和食</label>
+            <label><input type="checkbox" class="genre-options" name="genre" value="イタリアン"> イタリアン</label>
+            <label><input type="checkbox" class="genre-options" name="genre" value="スペイン料理"> スペイン料理</label>
+            <label><input type="checkbox" class="genre-options" name="genre" value="東南アジア料理"> 東南アジア料理</label>
+            <label><input type="checkbox" class="genre-options" name="genre" value="中華料理"> 中華料理</label>
+            <label><input type="checkbox" class="genre-options" name="genre" value="韓国料理"> 韓国料理</label>
+            <label><input type="checkbox" class="genre-options" name="genre" value="バー"> バー</label>
+            <label><input type="checkbox" class="genre-options" name="genre" value="その他"> その他</label>
+        </div>
+  </div>
+    <!-- <div class="form-group">
+                    <label for="genre">ジャンル:</label>
                     <select name="genre" id="genre" required>
-                        <option value="sashimi">お刺身</option>
-                        <option value="yakitori">焼き鳥</option>
-                        <option value="okonomiyaki">お好み焼き・もんじゃ</option>
-                        <option value="yakiniku">焼き肉</option>
-                        <option value="nabe_shabu">鍋・しゃぶしゃぶ</option>
-                        <option value="japanese">和食</option>
-                        <option value="italian">イタリアン</option>
-                        <option value="spanish">スペイン料理</option>
-                        <option value="southeast_asian">東南アジア料理</option>
-                        <option value="chinese">中華料理</option>
-                        <option value="korean">韓国料理</option>
-                        <option value="bar">バー</option>
-                        <option value="others">その他</option>
+                        <option value="お刺身">お刺身</option>
+                        <option value="焼き鳥">焼き鳥</option>
+                        <option value="お好み焼き・もんじゃ">お好み焼き・もんじゃ</option>
+                        <option value="焼き肉">焼き肉</option>
+                        <option value="鍋・しゃぶしゃぶ">鍋・しゃぶしゃぶ</option>
+                        <option value="和食">和食</option>
+                        <option value="イタリアン">イタリアン</option>
+                        <option value="スペイン料理">スペイン料理</option>
+                        <option value="東南アジア料理">東南アジア料理</option>
+                        <option value="中華料理">中華料理</option>
+                        <option value="韓国料理">韓国料理</option>
+                        <option value="バー">バー</option>
+                        <option value="その他">その他</option>
                     </select>
-                </div>    <br>
+                </div>    <br> -->
      <div class="form-group">
-                    <label for="price_range">価格帯を選んでください:</label>
+                    <label for="price_range">価格帯:</label>
                 　　    <select name="price_range" id="price_range" required>
-                        <option value="2000">2000円代</option>
-                        <option value="3000">3000円代</option>
-                        <option value="4000">4000円代</option>
-                        <option value="5000">5000円代</option>
-                        <option value="6000+">6000円以上</option>
+                        <option value="2000円代">2000円代</option>
+                        <option value="3000円代">3000円代</option>
+                        <option value="4000円代">4000円代</option>
+                        <option value="5000円代">5000円代</option>
+                        <option value="6000円以上">6000円以上</option>
                     </select>
                 </div>     <br>
      <div class="form-group">
-                    <label for="seat_type">席のタイプを選んでください:</label>
+                    <label for="seat_type">席のタイプ:</label>
                 　　    <select name="seat_type" id="seat_type" required>
-                        <option value="koshitsu">個室あり</option>
-                        <option value="nashi">個室なし</option>
-                        <option value="hannkoshitsu">半個室あり</option>
+                        <option value="個室あり">個室あり</option>
+                        <option value="個室なし">個室なし</option>
+                        <option value="半個室あり">半個室あり</option>
                     </select>
                 </div>    <br>
      <div class="form-group">
-                    <label for="reservation_style">予約方法を選んでください:</label>
-                　　    <select name="reservation_style" id="reservation_style" required>
-                        <option value="web">Web予約</option>
-                        <option value="call">電話予約</option>
-                        <option value="non">予約不可</option>
+                    <label for="reservation_style">予約方法:</label>
+                　　    <select　name="reservation_style" id="reservation_style" required>
+                        <option value="Web予約">Web予約</option>
+                        <option value="電話予約">電話予約</option>
+                        <option value="予約不可">予約不可</option>
                     </select>
                 </div>     <br>
      <div class="form-group">
-                    <label for="area">エリアを選んでください:</label>
-                　　    <select name="area" id="area" required>
-                        <option value="yurakucho">有楽町</option>
-                        <option value="kachidoki">勝どき</option>
-                        <option value="tukishima">月島</option>
-                        <option value="toyosu">豊洲</option>
+                    <label for="area">エリア:</label>
+                　　    <select class="answer" name="area" id="area" required>
+                        <option value="有楽町">有楽町</option>
+                        <option value="勝どき">勝どき</option>
+                        <option value="月島">月島</option>
+                        <option value="豊洲">豊洲</option>
                     </select>
                 </div>       <br>
      <div class="form-group">
-                    <label for="tabaco">タバコの可否を選んでください:</label>
+                    <label for="tabaco">タバコ:</label>
                 　　    <select name="tabaco" id="tabaco" required>
-                        <option value="no-smork">禁煙</option>
-                        <option value="separete">分煙</option>
-                        <option value="smaork-ok">喫煙</option>
-                        <option value="humei">不明</option>
+                        <option value="禁煙">禁煙</option>
+                        <option value="分煙">分煙</option>
+                        <option value="喫煙">喫煙</option>
+                        <option value="不明">不明</option>
                     </select>
                 </div>   <br>
      <div class="form-group">
-                    <label for="spend_time">滞在可能時間を選んでください:</label>
+                    <label for="spend_time">滞在可能時間:</label>
                 　　    <select name="spend_time" id="spend_time" required>
-                        <option value="1h">1時間</option>
-                        <option value="1.5h">1.5時間</option>
-                        <option value="2h">2時間</option>
-                        <option value="2.5h">2.5時間</option>
-                        <option value="3h">3時間以上</option>
-                        <option value="non-limit">制限なし</option>
+                        <option value="1時間">1時間</option>
+                        <option value="1.5時間">1.5時間</option>
+                        <option value="2時間">2時間</option>
+                        <option value="2.5時間">2.5時間</option>
+                        <option value="3時間以上">3時間以上</option>
+                        <option value="制限なし">制限なし</option>
                     </select>
                 </div>          <br> 
+    
      <div class="form-group">
-                    <label for="main_alcohol">お店のメインのお酒を選んでください:</label>
-                　　    <select name="main_alcohol" id="main_alcohol" required>
-                        <option value="nihonshu">日本酒</option>
-                        <option value="bear">ビール</option>
-                        <option value="wine">ワイン</option>
-                        <option value="shochu">焼酎</option>
-                        <option value="wisky">ウィスキー</option>
-                        <option value="haiball">ハイボール</option>
-                        <option value="all">全般</option>
-                    </select>
-                </div>       <br>
-     <div class="form-group">
-                    <label for="drink">飲み放題の有無を選んでください:</label>
+                    <label for="drink">飲み放題の有無:</label>
                 　　    <select name="drink" id="drink" required>
-                        <option value="ari">あり</option>
-                        <option value="nashi">なし</option>
+                        <option value="あり">あり</option>
+                        <option value="なし">なし</option>
                     </select>
                 </div>   <br>
      <div class="form-group">
-                    <label for="close_hour">閉店時間を選んでください:</label>
+                    <label for="close_hour">閉店時間:</label>
                 　　    <select name="close_hour" id="close_hour" required>
-                        <option value="19ｈ">19時</option>
-                        <option value="20ｈ">20時</option>
-                        <option value="21ｈ">21時</option>
-                        <option value="22ｈ">22時</option>
-                        <option value="23ｈ">23時</option>
-                        <option value="24ｈ">24時</option>
-                        <option value="after24ｈ">24時以降</option>
+                        <option value="19時">19時</option>
+                        <option value="20時">20時</option>
+                        <option value="21時">21時</option>
+                        <option value="22時">22時</option>
+                        <option value="23時">23時</option>
+                        <option value="24時">24時</option>
+                        <option value="24時以降">24時以降</option>
                     </select>
                 </div>      <br>
      <div class="form-group">
-                    <label for="menue">コースの有無を選んでください:</label>
+                    <label for="menue">コースの有無:</label>
                 　　    <select name="menue" id="menue" required>
-                        <option value="ari-seat">あり（席だけ予約可）</option>
-                        <option value="ari-nonseat">あり（席だけ予約不可）</option>
-                        <option value="nashi">なし</option>
+                        <option value="あり（席だけ予約可）">あり（席だけ予約可）</option>
+                        <option value="あり（席だけ予約不可）">あり（席だけ予約不可）</option>
+                        <option value="なし">なし</option>
                     </select>
                 </div>        <br>   
       <div class="form-group">
-                    <label for="situation">シチュエーションを選んでください:</label>
+                    <label for="situation">利用シチュエーション:</label>
                 　　    <select name="situation" id="situation" required>
-                        <option value="many-peop">大人数で宴会</option>
-                        <option value="few-peop">少人数で宴会</option>
-                        <option value="with-customer">接待</option>
-                        <option value="calm">落ち着いた雰囲気</option>
-                        <option value="high-sense">おしゃれな雰囲気</option>
+                        <option value="大人数で宴会">大人数で宴会</option>
+                        <option value="少人数で宴会">少人数で宴会</option>
+                        <option value="接待">接待</option>
+                        <option value="落ち着いた雰囲気">落ち着いた雰囲気</option>
+                        <option value="おしゃれな雰囲気">おしゃれな雰囲気</option>
                     </select>
                 </div>        <br>                                                             
     <div id="questions">
@@ -279,7 +335,8 @@
                 marker.setPosition(place.geometry.location);
                 marker.setVisible(true);
 
-                document.getElementById("location-name").textContent = place.name;
+             //表示を更新
+                document.getElementById("location_name").textContent = place.name;
                 document.getElementById("lat").textContent = place.geometry.location.lat();
                 document.getElementById("lng").textContent = place.geometry.location.lng();
 
@@ -299,17 +356,16 @@
     }
 
     function confirmLocation() {
-        const locationName = document.getElementById("location-name").textContent;
+        const locationName = document.getElementById("location_name").textContent;
         const lat = document.getElementById("lat").textContent;
         const lng = document.getElementById("lng").textContent;
         const genre = document.getElementById("genre").value;
         const price_range = document.getElementById("price_range").value;
-        const seat_type = document.getElementById("seat-type").value;
+        const seat_type = document.getElementById("seat_type").value;
         const reservation_style = document.getElementById("reservation_style").value;
         const area = document.getElementById("area").value;
         const tabaco = document.getElementById("tabaco").value;
         const spend_time = document.getElementById("spend_time").value;
-        const main_alcohol = document.getElementById("main_alcohol").value;
         const drink = document.getElementById("drink").value;
         const close_hour = document.getElementById("close_hour").value;
         const menue = document.getElementById("menue").value;
@@ -328,7 +384,6 @@
             area,
             tabaco,
             spend_time,
-            main_alcohol,
             drink,
             close_hour,
             menue,
