@@ -1,3 +1,6 @@
+
+
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -15,6 +18,26 @@
             height: 100vh;
             background-color: #f9f9f9;
         }
+        .form-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            width: 80%;
+            max-width: 500px;
+        }
+
+        .form-group label {
+            margin-right: 100px;
+            white-space: nowrap;
+            width: 150px; /* ラベルの幅を固定 */
+            text-align: right; /* ラベルのテキストを右揃え */
+        }
+
+        .form-group select {
+            flex: 1;
+            //margin-right: 100px;
+            width: 200px; /* 固定幅を設定 */
+        }
         #map {
             width: 100%;
             max-width: 600px;
@@ -23,7 +46,7 @@
         }
         #coordinates, #questions {
             margin: 20px;
-            font-size: 18px;
+            font-size: 16px;
         }
         .confirm-button {
             padding: 10px 20px;
@@ -58,10 +81,30 @@
         .hidden {
             display: none;
         }
-        .checkbox-group label {
+         .checkbox-group {
             display: flex;
+            flex-wrap: wrap;
+        }
+        .checkbox-group label {
+            width: 20%; /* チェックボックスを一列に表示 */
+            margin-bottom: 5px;
+        }
+        .genre-container label {
+          display: block;
+          text-align: center; /* ジャンルのラベルを中央揃え */
+        }
+        .genre-container {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 10px;
+          padding 10px;
+        }
+        .genre-options{
             align-items: center;
-            white-space: nowrap; /* Prevent line breaks */
+            padding:10px;
+            text-align:center;
+            border-radius: 4px;
+            cursor:pointer;
         }
     </style>
 </head>
@@ -75,68 +118,27 @@
         <p>Latitude: <span id="lat" visibility=>N/A</span></p>
         <p>Longitude: <span id="lng">N/A</span></p>
     </div>
-
-    <div class="form-group">
-                    <label for="genre">ジャンルを選んでください:</label>
-                <!-- <div class="checkbox-group">
-                    <label for="お刺身">
-                        <input type="checkbox" id="お刺身" name="genre" value="お刺身">
-                        お刺身
-                    </label>
-                    <label for="焼き鳥">
-                        <input type="checkbox" id="焼き鳥" name="genre" value="焼き鳥">
-                        焼き鳥
-                    </label>
-                    <label for="お好み焼き・もんじゃ">
-                        <input type="checkbox" id="お好み焼き・もんじゃ" name="genre" value="お好み焼き・もんじゃ">
-                        お好み焼き・もんじゃ
-                    </label>
-                    <label for="焼き肉">
-                        <input type="checkbox" id="焼き肉" name="genre" value="焼き肉">
-                        焼き肉
-                    </label>
-                    <label for="鍋・しゃぶしゃぶ">
-                        <input type="checkbox" id="鍋・しゃぶしゃぶ" name="genre" value="鍋・しゃぶしゃぶ">
-                        鍋・しゃぶしゃぶ
-                    </label>
-                    <label for="和食">
-                        <input type="checkbox" id="和食" name="genre" value="和食">
-                        和食
-                    </label>
-                    <label for="イタリアン">
-                        <input type="checkbox" id="イタリアン" name="genre" value="イタリアン">
-                        イタリアン
-                    </label>
-                    <label for="スペイン料理">
-                        <input type="checkbox" id="スペイン料理" name="genre" value="スペイン料理">
-                        スペイン料理
-                    </label>
-                    <label for="東南アジア料理">
-                        <input type="checkbox" id="東南アジア料理" name="genre" value="東南アジア料理">
-                        東南アジア料理
-                    </label>
-                    <label for="中華料理">
-                        <input type="checkbox" id="中華料理" name="genre" value="中華料理">
-                        中華料理
-                    </label>
-                    <label for="韓国料理">
-                        <input type="checkbox" id="韓国料理" name="genre" value="韓国料理">
-                        韓国料理
-                    </label>
-                    <label for="バー">
-                        <input type="checkbox" id="バー" name="genre" value="バー">
-                        バー
-                    </label>
-                    <label for="居酒屋">
-                        <input type="checkbox" id="居酒屋" name="genre" value="居酒屋">
-                        居酒屋
-                    </label>
-                    <label for="その他">
-                        <input type="checkbox" id="その他" name="genre" value="その他">
-                        その他
-                    </label>
-                </div> -->
-                    <select name="genre" id="genre" size="1" required multiple>
+ <label for="genre">ジャンル:</label><br>
+<div class="genre-container">        
+        <div class="checkbox-group">
+            <label><input type="checkbox" class="genre-options" name="genre" value="お刺身"> お刺身</label>
+            <label><input type="checkbox" class="genre-options" name="genre" value="焼き鳥"> 焼き鳥</label>
+            <label><input type="checkbox" class="genre-options" name="genre" value="お好み焼き・もんじゃ"> お好み焼き・もんじゃ</label>
+            <label><input type="checkbox" class="genre-options" name="genre" value="焼き肉"> 焼き肉</label>
+            <label><input type="checkbox" class="genre-options" name="genre" value="鍋・しゃぶしゃぶ"> 鍋・しゃぶしゃぶ</label>
+            <label><input type="checkbox" class="genre-options" name="genre" value="和食"> 和食</label>
+            <label><input type="checkbox" class="genre-options" name="genre" value="イタリアン"> イタリアン</label>
+            <label><input type="checkbox" class="genre-options" name="genre" value="スペイン料理"> スペイン料理</label>
+            <label><input type="checkbox" class="genre-options" name="genre" value="東南アジア料理"> 東南アジア料理</label>
+            <label><input type="checkbox" class="genre-options" name="genre" value="中華料理"> 中華料理</label>
+            <label><input type="checkbox" class="genre-options" name="genre" value="韓国料理"> 韓国料理</label>
+            <label><input type="checkbox" class="genre-options" name="genre" value="バー"> バー</label>
+            <label><input type="checkbox" class="genre-options" name="genre" value="その他"> その他</label>
+        </div>
+        </div>
+    <!-- <div class="form-group">
+                    <label for="genre">ジャンル:</label>
+                    <select name="genre" id="genre" required>
                         <option value="お刺身">お刺身</option>
                         <option value="焼き鳥">焼き鳥</option>
                         <option value="お好み焼き・もんじゃ">お好み焼き・もんじゃ</option>
@@ -151,9 +153,9 @@
                         <option value="バー">バー</option>
                         <option value="その他">その他</option>
                     </select>
-                </div>    <br>
+                </div>    <br> -->
      <div class="form-group">
-                    <label for="price_range">価格帯を選んでください:</label>
+                    <label for="price_range">価格帯:</label>
                 　　    <select name="price_range" id="price_range" required>
                         <option value="2000円代">2000円代</option>
                         <option value="3000円代">3000円代</option>
@@ -163,7 +165,7 @@
                     </select>
                 </div>     <br>
      <div class="form-group">
-                    <label for="seat_type">席のタイプを選んでください:</label>
+                    <label for="seat_type">席のタイプ:</label>
                 　　    <select name="seat_type" id="seat_type" required>
                         <option value="個室あり">個室あり</option>
                         <option value="個室なし">個室なし</option>
@@ -171,16 +173,16 @@
                     </select>
                 </div>    <br>
      <div class="form-group">
-                    <label for="reservation_style">予約方法を選んでください:</label>
-                　　    <select name="reservation_style" id="reservation_style" required>
+                    <label for="reservation_style">予約方法:</label>
+                　　    <select　name="reservation_style" id="reservation_style" required>
                         <option value="Web予約">Web予約</option>
                         <option value="電話予約">電話予約</option>
                         <option value="予約不可">予約不可</option>
                     </select>
                 </div>     <br>
      <div class="form-group">
-                    <label for="area">エリアを選んでください:</label>
-                　　    <select name="area" id="area" required>
+                    <label for="area">エリア:</label>
+                　　    <select class="answer" name="area" id="area" required>
                         <option value="有楽町">有楽町</option>
                         <option value="勝どき">勝どき</option>
                         <option value="月島">月島</option>
@@ -188,7 +190,7 @@
                     </select>
                 </div>       <br>
      <div class="form-group">
-                    <label for="tabaco">タバコの可否を選んでください:</label>
+                    <label for="tabaco">タバコ:</label>
                 　　    <select name="tabaco" id="tabaco" required>
                         <option value="禁煙">禁煙</option>
                         <option value="分煙">分煙</option>
@@ -197,7 +199,7 @@
                     </select>
                 </div>   <br>
      <div class="form-group">
-                    <label for="spend_time">滞在可能時間を選んでください:</label>
+                    <label for="spend_time">滞在可能時間:</label>
                 　　    <select name="spend_time" id="spend_time" required>
                         <option value="1時間">1時間</option>
                         <option value="1.5時間">1.5時間</option>
@@ -207,28 +209,16 @@
                         <option value="制限なし">制限なし</option>
                     </select>
                 </div>          <br> 
+    
      <div class="form-group">
-                    <label for="main_alcohol">お店のメインのお酒を選んでください:</label>
-                　　    <select name="main_alcohol" id="main_alcohol" required>
-                        <option value="日本酒">日本酒</option>
-                        <option value="ビール">ビール</option>
-                        <option value="ワイン">ワイン</option>
-                        <option value="焼酎">焼酎</option>
-                        <option value="ウィスキー">ウィスキー</option>
-                        <option value="ハイボール">ハイボール</option>
-                        <option value="チューハイ">チューハイ</option>
-                        <option value="全般">全般</option>
-                    </select>
-                </div>       <br>
-     <div class="form-group">
-                    <label for="drink">飲み放題の有無を選んでください:</label>
+                    <label for="drink">飲み放題の有無:</label>
                 　　    <select name="drink" id="drink" required>
                         <option value="あり">あり</option>
                         <option value="なし">なし</option>
                     </select>
                 </div>   <br>
      <div class="form-group">
-                    <label for="close_hour">閉店時間を選んでください:</label>
+                    <label for="close_hour">閉店時間:</label>
                 　　    <select name="close_hour" id="close_hour" required>
                         <option value="19時">19時</option>
                         <option value="20時">20時</option>
@@ -240,7 +230,7 @@
                     </select>
                 </div>      <br>
      <div class="form-group">
-                    <label for="menue">コースの有無を選んでください:</label>
+                    <label for="menue">コースの有無:</label>
                 　　    <select name="menue" id="menue" required>
                         <option value="あり（席だけ予約可）">あり（席だけ予約可）</option>
                         <option value="あり（席だけ予約不可）">あり（席だけ予約不可）</option>
@@ -248,7 +238,7 @@
                     </select>
                 </div>        <br>   
       <div class="form-group">
-                    <label for="situation">シチュエーションを選んでください:</label>
+                    <label for="situation">利用シチュエーション:</label>
                 　　    <select name="situation" id="situation" required>
                         <option value="大人数で宴会">大人数で宴会</option>
                         <option value="少人数で宴会">少人数で宴会</option>
@@ -378,7 +368,6 @@
         const area = document.getElementById("area").value;
         const tabaco = document.getElementById("tabaco").value;
         const spend_time = document.getElementById("spend_time").value;
-        const main_alcohol = document.getElementById("main_alcohol").value;
         const drink = document.getElementById("drink").value;
         const close_hour = document.getElementById("close_hour").value;
         const menue = document.getElementById("menue").value;
@@ -397,7 +386,6 @@
             area,
             tabaco,
             spend_time,
-            main_alcohol,
             drink,
             close_hour,
             menue,
