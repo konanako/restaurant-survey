@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -39,12 +38,9 @@
             width: 100%;
             /* 固定幅を設定 */
         }
-
-        #map {
-            width: 100%;
-            max-width: 600px;
-            height: 400px;
-            margin: 20px 0;
+        
+        .search-bar{
+          margin-bottom: 20px;
         }
 
         #coordinates,
@@ -130,6 +126,7 @@
             text-align: center;
             border-radius: 4px;
             cursor: pointer;
+            margin-left: 15px;
         }
     </style>
 </head>
@@ -138,8 +135,8 @@
     <h1>飲食店評価アンケート</h1>
     <div class="row justify-content-center">
         <div class="col-md-8"> <!-- グリッドカラムの幅を設定 -->
-    <input id="pac-input" class="controls" type="text" placeholder="Search for a location">
-    <div id="map" style="width: 800px; height: 800px;"></div>
+    <input id="pac-input" class="search-bar" type="text" placeholder="Search for a location">
+    <br>
     <div id="coordinates" class="hidden">
         <p>Location Name: <span id="location_name">N/A</span></p>
         <p>Latitude: <span id="lat" visibility=>N/A</span></p>
@@ -317,27 +314,8 @@
 
         function initMap() {
             const defaultLocation = { lat: 35.665, lng: 139.781 };
-            map = new google.maps.Map(document.getElementById("map"), {
-                center: defaultLocation,
-                zoom: 8,
-            });
-
-            marker = new google.maps.Marker({
-                position: defaultLocation,
-                map: map,
-                draggable: true,
-            });
-
-            infowindow = new google.maps.InfoWindow();
-
             const input = document.getElementById("pac-input");
             const searchBox = new google.maps.places.SearchBox(input);
-
-            map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
-
-            map.addListener("bounds_changed", () => {
-                searchBox.setBounds(map.getBounds());
-            });
 
             searchBox.addListener("places_changed", () => {
                 const places = searchBox.getPlaces();
@@ -346,17 +324,11 @@
                     return;
                 }
 
-                marker.setVisible(false);
-
-                const bounds = new google.maps.LatLngBounds();
                 places.forEach(place => {
                     if (!place.geometry || !place.geometry.location) {
                         console.log("Returned place contains no geometry");
                         return;
                     }
-
-                    marker.setPosition(place.geometry.location);
-                    marker.setVisible(true);
 
                     //表示を更新
                     document.getElementById("location_name").textContent = place.name;
@@ -369,12 +341,6 @@
                         bounds.extend(place.geometry.location);
                     }
                 });
-                map.fitBounds(bounds);
-            });
-
-            google.maps.event.addListener(marker, 'dragend', function (event) {
-                document.getElementById("lat").textContent = event.latLng.lat();
-                document.getElementById("lng").textContent = event.latLng.lng();
             });
         }
 
