@@ -38,15 +38,43 @@
             width: 100%;
             /* 固定幅を設定 */
         }
-        
-        .search-bar{
-          margin-bottom: 20px;
+
+        .search-bar {
+            margin-bottom: 20px;
         }
 
         #coordinates,
         #questions {
-            margin: 20px;
             font-size: 16px;
+            text-align: center;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            border-radius: 8px;
+            display: block;
+        }
+
+        .title {
+            white-space: nowrap;
+            display: block;
+            margin-bottom: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .textbox {
+            width: 100%;
+            max-width: 300px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
         }
 
         .confirm-button {
@@ -71,12 +99,7 @@
             border: 1px solid #ccc;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
-        .feedback-container {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            margin: 20px 0;
-        }
+
         #feedback {
             width: 150%;
             max-width: 700px;
@@ -128,6 +151,22 @@
             cursor: pointer;
             margin-left: 15px;
         }
+
+        .free-response {
+            align-self: center;
+            max-width: 400px;
+            ;
+        }
+
+        textarea {
+            width: 80%;
+            -webkit-box-sizing: border-box;
+            /* Safari/Chrome, other WebKit */
+            -moz-box-sizing: border-box;
+            /* Firefox, other Gecko */
+            box-sizing: border-box;
+            /* Opera/IE 8+ */
+        }
     </style>
 </head>
 
@@ -135,295 +174,302 @@
     <h1>飲食店評価アンケート</h1>
     <div class="row justify-content-center">
         <div class="col-md-8"> <!-- グリッドカラムの幅を設定 -->
-    <input id="pac-input" class="search-bar" type="text" placeholder="Search for a location">
-    <br>
-    <div id="coordinates" class="hidden">
-        <p>Location Name: <span id="location_name">N/A</span></p>
-        <p>Latitude: <span id="lat" visibility=>N/A</span></p>
-        <p>Longitude: <span id="lng">N/A</span></p>
-    </div>
-    <label for="genre">ジャンル:</label>
-    <div class="genre-container">
-        <div class="checkbox-group">
-            <label><input type="checkbox" class="genre-options" name="genre" value="お刺身"> お刺身</label>
-            <label><input type="checkbox" class="genre-options" name="genre" value="焼き鳥"> 焼き鳥</label>
-            <label><input type="checkbox" class="genre-options" name="genre" value="お好み焼き・もんじゃ"> お好み焼き・もんじゃ</label>
-            <label><input type="checkbox" class="genre-options" name="genre" value="焼き肉"> 焼き肉</label>
-            <label><input type="checkbox" class="genre-options" name="genre" value="鍋・しゃぶしゃぶ"> 鍋・しゃぶしゃぶ</label>
-            <label><input type="checkbox" class="genre-options" name="genre" value="和食"> 和食</label>
-            <label><input type="checkbox" class="genre-options" name="genre" value="イタリアン"> イタリアン</label>
-            <label><input type="checkbox" class="genre-options" name="genre" value="スペイン料理"> スペイン料理</label>
-            <label><input type="checkbox" class="genre-options" name="genre" value="東南アジア料理"> 東南アジア料理</label>
-            <label><input type="checkbox" class="genre-options" name="genre" value="中華料理"> 中華料理</label>
-            <label><input type="checkbox" class="genre-options" name="genre" value="韓国料理"> 韓国料理</label>
-            <label><input type="checkbox" class="genre-options" name="genre" value="バー"> バー</label>
-            <label><input type="checkbox" class="genre-options" name="genre" value="その他"> その他</label>
-        </div>
-    </div><br>
-    <div class="form-group">
-        <label for="price_range">価格帯:</label>
-        　　 <select name="price_range" id="price_range" required>
-            <option value="null">選択してください</option>
-            <option value="2000円代">2000円代</option>
-            <option value="3000円代">3000円代</option>
-            <option value="4000円代">4000円代</option>
-            <option value="5000円代">5000円代</option>
-            <option value="6000円以上">6000円以上</option>
-        </select>
-    </div> <br>
-    <div class="form-group">
-        <label for="seat_type">席のタイプ:</label>
-        　　 <select name="seat_type" id="seat_type" required>
-            <option value="null">選択してください</option>
-            <option value="個室あり">個室あり</option>
-            <option value="個室なし">個室なし</option>
-            <option value="半個室あり">半個室あり</option>
-        </select>
-    </div> <br>
-    <div class="form-group">
-        <label for="reservation_style">予約方法:</label>
-        　　 <select name="reservation_style" id="reservation_style" required>
-            <option value="null">選択してください</option>
-            <option value="Web予約">Web予約</option>
-            <option value="電話予約">電話予約</option>
-            <option value="予約不可">予約不可</option>
-        </select>
-    </div> <br>
-    <div class="form-group">
-        <label for="area">エリア:</label>
-        　　 <select class="answer" name="area" id="area" required>
-            <option value="null">選択してください</option>
-            <option value="有楽町">有楽町</option>
-            <option value="勝どき">勝どき</option>
-            <option value="月島">月島</option>
-            <option value="豊洲">豊洲</option>
-        </select>
-    </div> <br>
-    <div class="form-group">
-        <label for="tabaco">タバコ:</label>
-        　　 <select name="tabaco" id="tabaco" required>
-            <option value="null">選択してください</option>
-            <option value="禁煙">禁煙</option>
-            <option value="分煙">分煙</option>
-            <option value="喫煙">喫煙</option>
-            <option value="不明">不明</option>
-        </select>
-    </div> <br>
-    <div class="form-group">
-        <label for="spend_time">滞在可能時間:</label>
-        　　 <select name="spend_time" id="spend_time" required>
-            <option value="null">選択してください</option>
-            <option value="1時間">1時間</option>
-            <option value="1.5時間">1.5時間</option>
-            <option value="2時間">2時間</option>
-            <option value="2.5時間">2.5時間</option>
-            <option value="3時間以上">3時間以上</option>
-            <option value="制限なし">制限なし</option>
-        </select>
-    </div> <br>
+            <input id="pac-input" class="search-bar" type="text" placeholder="Search for a location">
+            <br>
+            <div id="coordinates" class="hidden">
+                <p>Location Name: <span id="location_name">N/A</span></p>
+                <p>Latitude: <span id="lat" visibility=>N/A</span></p>
+                <p>Longitude: <span id="lng">N/A</span></p>
+            </div>
+            <label for="genre">ジャンル:</label>
+            <div class="genre-container">
+                <div class="checkbox-group">
+                    <label><input type="checkbox" class="genre-options" name="genre" value="お刺身"> お刺身</label>
+                    <label><input type="checkbox" class="genre-options" name="genre" value="焼き鳥"> 焼き鳥</label>
+                    <label><input type="checkbox" class="genre-options" name="genre" value="お好み焼き・もんじゃ">
+                        お好み焼き・もんじゃ</label>
+                    <label><input type="checkbox" class="genre-options" name="genre" value="焼き肉"> 焼き肉</label>
+                    <label><input type="checkbox" class="genre-options" name="genre" value="鍋・しゃぶしゃぶ"> 鍋・しゃぶしゃぶ</label>
+                    <label><input type="checkbox" class="genre-options" name="genre" value="和食"> 和食</label>
+                    <label><input type="checkbox" class="genre-options" name="genre" value="イタリアン"> イタリアン</label>
+                    <label><input type="checkbox" class="genre-options" name="genre" value="スペイン料理"> スペイン料理</label>
+                    <label><input type="checkbox" class="genre-options" name="genre" value="東南アジア料理"> 東南アジア料理</label>
+                    <label><input type="checkbox" class="genre-options" name="genre" value="中華料理"> 中華料理</label>
+                    <label><input type="checkbox" class="genre-options" name="genre" value="韓国料理"> 韓国料理</label>
+                    <label><input type="checkbox" class="genre-options" name="genre" value="バー"> バー</label>
+                    <label><input type="checkbox" class="genre-options" name="genre" value="その他"> その他</label>
+                </div>
+            </div><br>
+            <div class="form-group">
+                <label for="price_range">価格帯:</label>
+                　　 <select name="price_range" id="price_range" required>
+                    <option value="null">選択してください</option>
+                    <option value="2000円代">2000円代</option>
+                    <option value="3000円代">3000円代</option>
+                    <option value="4000円代">4000円代</option>
+                    <option value="5000円代">5000円代</option>
+                    <option value="6000円以上">6000円以上</option>
+                </select>
+            </div> <br>
+            <div class="form-group">
+                <label for="seat_type">席のタイプ:</label>
+                　　 <select name="seat_type" id="seat_type" required>
+                    <option value="null">選択してください</option>
+                    <option value="個室あり">個室あり</option>
+                    <option value="個室なし">個室なし</option>
+                    <option value="半個室あり">半個室あり</option>
+                </select>
+            </div> <br>
+            <div class="form-group">
+                <label for="reservation_style">予約方法:</label>
+                　　 <select name="reservation_style" id="reservation_style" required>
+                    <option value="null">選択してください</option>
+                    <option value="Web予約">Web予約</option>
+                    <option value="電話予約">電話予約</option>
+                    <option value="予約不可">予約不可</option>
+                </select>
+            </div> <br>
+            <div class="form-group">
+                <label for="area">エリア:</label>
+                　　 <select class="answer" name="area" id="area" required>
+                    <option value="null">選択してください</option>
+                    <option value="有楽町">有楽町</option>
+                    <option value="勝どき">勝どき</option>
+                    <option value="月島">月島</option>
+                    <option value="豊洲">豊洲</option>
+                </select>
+            </div> <br>
+            <div class="form-group">
+                <label for="tabaco">タバコ:</label>
+                　　 <select name="tabaco" id="tabaco" required>
+                    <option value="null">選択してください</option>
+                    <option value="禁煙">禁煙</option>
+                    <option value="分煙">分煙</option>
+                    <option value="喫煙">喫煙</option>
+                    <option value="不明">不明</option>
+                </select>
+            </div> <br>
+            <div class="form-group">
+                <label for="spend_time">滞在可能時間:</label>
+                　　 <select name="spend_time" id="spend_time" required>
+                    <option value="null">選択してください</option>
+                    <option value="1時間">1時間</option>
+                    <option value="1.5時間">1.5時間</option>
+                    <option value="2時間">2時間</option>
+                    <option value="2.5時間">2.5時間</option>
+                    <option value="3時間以上">3時間以上</option>
+                    <option value="制限なし">制限なし</option>
+                </select>
+            </div> <br>
 
-    <div class="form-group">
-        <label for="drink">飲み放題の有無:</label>
-        　　 <select name="drink" id="drink" required>
-            <option value="null">選択してください</option>
-            <option value="あり">あり</option>
-            <option value="なし">なし</option>
-        </select>
-    </div> <br>
-    <div class="form-group">
-        <label for="close_hour">閉店時間:</label>
-        　　 <select name="close_hour" id="close_hour" required>
-            <option value="null">選択してください</option>
-            <option value="19時">19時</option>
-            <option value="20時">20時</option>
-            <option value="21時">21時</option>
-            <option value="22時">22時</option>
-            <option value="23時">23時</option>
-            <option value="24時">24時</option>
-            <option value="24時以降">24時以降</option>
-        </select>
-    </div> <br>
-    <div class="form-group">
-        <label for="menue">コースの有無:</label>
-        　　 <select name="menue" id="menue" required>
-            <option value="null">選択してください</option>
-            <option value="あり（席だけ予約可）">あり（席だけ予約可）</option>
-            <option value="あり（席だけ予約不可）">あり（席だけ予約不可）</option>
-            <option value="なし">なし</option>
-        </select>
-    </div> <br>
-    <div class="form-group">
-        <label for="situation">利用シチュエーション:</label>
-        　　 <select name="situation" id="situation" required>
-            <option value="null">選択してください</option>
-            <option value="大人数で宴会">大人数で宴会</option>
-            <option value="少人数で宴会">少人数で宴会</option>
-            <option value="接待">接待</option>
-            <option value="落ち着いた雰囲気">落ち着いた雰囲気</option>
-            <option value="おしゃれな雰囲気">おしゃれな雰囲気</option>
-        </select>
-    </div> 
-    <div class="form-group">
-        <label for="rating">総合評価 (1~5):</label>
-            　 <select id="rating">
-                <option value="null">選択してください</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-            </select>
-        </div>
-            
-  <div id="questions">
-        <p>備考 (最大 500字まで):</p>
+            <div class="form-group">
+                <label for="drink">飲み放題の有無:</label>
+                　　 <select name="drink" id="drink" required>
+                    <option value="null">選択してください</option>
+                    <option value="あり">あり</option>
+                    <option value="なし">なし</option>
+                </select>
+            </div> <br>
+            <div class="form-group">
+                <label for="close_hour">閉店時間:</label>
+                　　 <select name="close_hour" id="close_hour" required>
+                    <option value="null">選択してください</option>
+                    <option value="19時">19時</option>
+                    <option value="20時">20時</option>
+                    <option value="21時">21時</option>
+                    <option value="22時">22時</option>
+                    <option value="23時">23時</option>
+                    <option value="24時">24時</option>
+                    <option value="24時以降">24時以降</option>
+                </select>
+            </div> <br>
+            <div class="form-group">
+                <label for="menue">コースの有無:</label>
+                　　 <select name="menue" id="menue" required>
+                    <option value="null">選択してください</option>
+                    <option value="あり（席だけ予約可）">あり（席だけ予約可）</option>
+                    <option value="あり（席だけ予約不可）">あり（席だけ予約不可）</option>
+                    <option value="なし">なし</option>
+                </select>
+            </div> <br>
+            <div class="form-group">
+                <label for="situation">利用シチュエーション:</label>
+                　　 <select name="situation" id="situation" required>
+                    <option value="null">選択してください</option>
+                    <option value="大人数で宴会">大人数で宴会</option>
+                    <option value="少人数で宴会">少人数で宴会</option>
+                    <option value="接待">接待</option>
+                    <option value="落ち着いた雰囲気">落ち着いた雰囲気</option>
+                    <option value="おしゃれな雰囲気">おしゃれな雰囲気</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="rating">総合評価 (1~5):</label>
+                　 <select id="rating">
+                    <option value="null">選択してください</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+
+            <!-- <div id="questions">
+        <p class="free-response">備考 (最大 500字まで):</p>
         <textarea id="feedback" maxlength="500"></textarea>
-           </div>
-    <button class="confirm-button" onclick="confirmLocation()">Confirm Location</button>
-    <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-analytics.js";
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
+  </div> -->
 
-        // Your web app's Firebase configuration
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-        const firebaseConfig = {
-            apiKey: "AIzaSyBXALr5tF-Tj7zBalBSeX-yVEix_f35pW8",
-            authDomain: "restaurant-survey-5c379.firebaseapp.com",
-            databaseURL: "https://restaurant-survey-5c379-default-rtdb.firebaseio.com",
-            projectId: "restaurant-survey-5c379",
-            storageBucket: "restaurant-survey-5c379.appspot.com",
-            messagingSenderId: "758872683752",
-            appId: "1:758872683752:web:b571e9b8e11b91709e455d",
-            measurementId: "G-DG43F9Q0EE"
-        };
 
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
+            <div class="container">
+                <label for="userInput" class="title">備考 (最大 500字まで):</label>
+                <textarea type="text" id="feedback" class="textbox" placeholder="入力お願いします"></textarea>
+            </div>
+            <button class="confirm-button" onclick="confirmLocation()">Confirm Location</button>
+            <script type="module">
+                // Import the functions you need from the SDKs you need
+                import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-app.js";
+                import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-analytics.js";
+                // TODO: Add SDKs for Firebase products that you want to use
+                // https://firebase.google.com/docs/web/setup#available-libraries
 
-        firebase.initializeApp(firebaseConfig);
-    </script>
+                // Your web app's Firebase configuration
+                // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+                const firebaseConfig = {
+                    apiKey: "AIzaSyBXALr5tF-Tj7zBalBSeX-yVEix_f35pW8",
+                    authDomain: "restaurant-survey-5c379.firebaseapp.com",
+                    databaseURL: "https://restaurant-survey-5c379-default-rtdb.firebaseio.com",
+                    projectId: "restaurant-survey-5c379",
+                    storageBucket: "restaurant-survey-5c379.appspot.com",
+                    messagingSenderId: "758872683752",
+                    appId: "1:758872683752:web:b571e9b8e11b91709e455d",
+                    measurementId: "G-DG43F9Q0EE"
+                };
 
-    <script>
-        let map;
-        let marker;
-        let infowindow;
+                // Initialize Firebase
+                const app = initializeApp(firebaseConfig);
+                const analytics = getAnalytics(app);
 
-        function initMap() {
-            const defaultLocation = { lat: 35.665, lng: 139.781 };
-            const input = document.getElementById("pac-input");
-            const searchBox = new google.maps.places.SearchBox(input);
+                firebase.initializeApp(firebaseConfig);
+            </script>
 
-            searchBox.addListener("places_changed", () => {
-                const places = searchBox.getPlaces();
+            <script>
+                let map;
+                let marker;
+                let infowindow;
 
-                if (places.length == 0) {
-                    return;
+                function initMap() {
+                    const defaultLocation = { lat: 35.665, lng: 139.781 };
+                    const input = document.getElementById("pac-input");
+                    const searchBox = new google.maps.places.SearchBox(input);
+
+                    searchBox.addListener("places_changed", () => {
+                        const places = searchBox.getPlaces();
+
+                        if (places.length == 0) {
+                            return;
+                        }
+
+                        places.forEach(place => {
+                            if (!place.geometry || !place.geometry.location) {
+                                console.log("Returned place contains no geometry");
+                                return;
+                            }
+
+                            //表示を更新
+                            document.getElementById("location_name").textContent = place.name;
+                            document.getElementById("lat").textContent = place.geometry.location.lat();
+                            document.getElementById("lng").textContent = place.geometry.location.lng();
+
+                            if (place.geometry.viewport) {
+                                bounds.union(place.geometry.viewport);
+                            } else {
+                                bounds.extend(place.geometry.location);
+                            }
+                        });
+                    });
                 }
 
-                places.forEach(place => {
-                    if (!place.geometry || !place.geometry.location) {
-                        console.log("Returned place contains no geometry");
-                        return;
-                    }
+                function confirmLocation() {
+                    const locationName = document.getElementById("location_name").textContent;
+                    const lat = document.getElementById("lat").textContent;
+                    const lng = document.getElementById("lng").textContent;
+                    const genreCheckboxes = document.querySelectorAll('.genre-options:checked');
+                    const genres = Array.from(genreCheckboxes).map(checkbox => checkbox.value);
+                    const price_range = document.getElementById("price_range").value;
+                    const seat_type = document.getElementById("seat_type").value;
+                    const reservation_style = document.getElementById("reservation_style").value;
+                    const area = document.getElementById("area").value;
+                    const tabaco = document.getElementById("tabaco").value;
+                    const spend_time = document.getElementById("spend_time").value;
+                    const drink = document.getElementById("drink").value;
+                    const close_hour = document.getElementById("close_hour").value;
+                    const menue = document.getElementById("menue").value;
+                    const situation = document.getElementById("situation").value;
+                    const rating = document.getElementById("rating").value;
+                    const feedback = document.getElementById("feedback").value;
 
-                    //表示を更新
-                    document.getElementById("location_name").textContent = place.name;
-                    document.getElementById("lat").textContent = place.geometry.location.lat();
-                    document.getElementById("lng").textContent = place.geometry.location.lng();
+                    const data = {
+                        locationName,
+                        latitude: lat,
+                        longitude: lng,
+                        genres,
+                        price_range,
+                        seat_type,
+                        reservation_style,
+                        area,
+                        tabaco,
+                        spend_time,
+                        drink,
+                        close_hour,
+                        menue,
+                        situation,
+                        rating,
+                        feedback
+                    };
 
-                    if (place.geometry.viewport) {
-                        bounds.union(place.geometry.viewport);
-                    } else {
-                        bounds.extend(place.geometry.location);
-                    }
-                });
-            });
-        }
+                    // Send data to Firebase
+                    firebase.database().ref('locations').push(data)
+                        .then(() => {
+                            alert('Location data saved successfully!');
+                            resetForm(); // フォームをリセット
+                        })
+                        .catch((error) => {
+                            console.error('Error saving data:', error);
+                        });
+                }
+                function resetForm() {
+                    document.getElementById("location_name").textContent = "N/A";
+                    document.getElementById("lat").textContent = "N/A";
+                    document.getElementById("lng").textContent = "N/A";
+                    document.getElementById("pac-input").value = "";
+                    const checkboxes = document.querySelectorAll('.genre-options');
+                    checkboxes.forEach(checkbox => checkbox.checked = false);
+                    document.getElementById("price_range").selectedIndex = 0;
+                    document.getElementById("seat_type").selectedIndex = 0;
+                    document.getElementById("reservation_style").selectedIndex = 0;
+                    document.getElementById("area").selectedIndex = 0;
+                    document.getElementById("tabaco").selectedIndex = 0;
+                    document.getElementById("spend_time").selectedIndex = 0;
+                    document.getElementById("drink").selectedIndex = 0;
+                    document.getElementById("close_hour").selectedIndex = 0;
+                    document.getElementById("menue").selectedIndex = 0;
+                    document.getElementById("situation").selectedIndex = 0;
+                    document.getElementById("rating").selectedIndex = 0;
+                    document.getElementById("feedback").value = "";
+                }
+            </script>
 
-        function confirmLocation() {
-            const locationName = document.getElementById("location_name").textContent;
-            const lat = document.getElementById("lat").textContent;
-            const lng = document.getElementById("lng").textContent;
-            const genreCheckboxes = document.querySelectorAll('.genre-options:checked');
-            const genres = Array.from(genreCheckboxes).map(checkbox => checkbox.value);
-            const price_range = document.getElementById("price_range").value;
-            const seat_type = document.getElementById("seat_type").value;
-            const reservation_style = document.getElementById("reservation_style").value;
-            const area = document.getElementById("area").value;
-            const tabaco = document.getElementById("tabaco").value;
-            const spend_time = document.getElementById("spend_time").value;
-            const drink = document.getElementById("drink").value;
-            const close_hour = document.getElementById("close_hour").value;
-            const menue = document.getElementById("menue").value;
-            const situation = document.getElementById("situation").value;
-            const rating = document.getElementById("rating").value;
-            const feedback = document.getElementById("feedback").value;
+            <!-- Replace YOUR_API_KEY with your actual Google Maps API key -->
+            <script
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4Rhihf6YWisKD2VP0bh2Avwouyo4JOTI&libraries=places&callback=initMap"
+                async defer></script>
 
-            const data = {
-                locationName,
-                latitude: lat,
-                longitude: lng,
-                genres,
-                price_range,
-                seat_type,
-                reservation_style,
-                area,
-                tabaco,
-                spend_time,
-                drink,
-                close_hour,
-                menue,
-                situation,
-                rating,
-                feedback
-            };
-
-            // Send data to Firebase
-            firebase.database().ref('locations').push(data)
-                .then(() => {
-                    alert('Location data saved successfully!');
-                    resetForm(); // フォームをリセット
-                })
-                .catch((error) => {
-                    console.error('Error saving data:', error);
-                });
-        }
-        function resetForm() {
-            document.getElementById("location_name").textContent = "N/A";
-            document.getElementById("lat").textContent = "N/A";
-            document.getElementById("lng").textContent = "N/A";
-            document.getElementById("pac-input").value = "";
-            const checkboxes = document.querySelectorAll('.genre-options');
-            checkboxes.forEach(checkbox => checkbox.checked = false);
-            document.getElementById("price_range").selectedIndex = 0;
-            document.getElementById("seat_type").selectedIndex = 0;
-            document.getElementById("reservation_style").selectedIndex = 0;
-            document.getElementById("area").selectedIndex = 0;
-            document.getElementById("tabaco").selectedIndex = 0;
-            document.getElementById("spend_time").selectedIndex = 0;
-            document.getElementById("drink").selectedIndex = 0;
-            document.getElementById("close_hour").selectedIndex = 0;
-            document.getElementById("menue").selectedIndex = 0;
-            document.getElementById("situation").selectedIndex = 0;
-            document.getElementById("rating").selectedIndex = 0;
-            document.getElementById("feedback").value = "";
-        }
-    </script>
-
-    <!-- Replace YOUR_API_KEY with your actual Google Maps API key -->
-    <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4Rhihf6YWisKD2VP0bh2Avwouyo4JOTI&libraries=places&callback=initMap"
-        async defer></script>
-
-    <!-- Include Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-database-compat.js"></script>
-<!-- BootstrapのJavaScriptをインポート -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+            <!-- Include Firebase -->
+            <script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-app-compat.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-database-compat.js"></script>
+            <!-- BootstrapのJavaScriptをインポート -->
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
 
