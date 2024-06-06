@@ -54,27 +54,33 @@
         }
 
         .genre-container {
+            margin-left: auto 20px;
+            margin-right: auto 20px;
             text-align: center;
             max-width: 500px;
-            margin: 0 auto;
+            gap: 10px;
+            /* 中央揃え */
+            align-items: center;
+        }
+
+        .genre-options {
+            padding: 1px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 15px;
         }
 
         .checkbox-group {
             /* チェックボックスを3列に表示 */
-            display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 2px;
-            justify-content: center;
-            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
         }
 
         .checkbox-group label {
             margin-bottom: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center; /* 中央揃え */
+            display: block;
             text-align: center;
-            min-width: 175px; /* 必要に応じて調整 */
         }
 
         .form-group {
@@ -84,7 +90,6 @@
             width: 80%;
             max-width: 500px;
         }
-
 
         .form-group label {
             white-space: nowrap;
@@ -171,7 +176,8 @@
             <div class="checkbox-group">
                 <label><input type="checkbox" class="genre-options" name="genre" value="お刺身"> お刺身</label>
                 <label><input type="checkbox" class="genre-options" name="genre" value="焼き鳥"> 焼き鳥</label>
-                <label><input type="checkbox" class="genre-options" name="genre" value="お好み焼き・もんじゃ"> お好み焼き・もんじゃ</label>
+                <label><input type="checkbox" class="genre-options" name="genre" value="お好み焼き・もんじゃ">
+                    お好み焼き・もんじゃ</label>
                 <label><input type="checkbox" class="genre-options" name="genre" value="焼き肉"> 焼き肉</label>
                 <label><input type="checkbox" class="genre-options" name="genre" value="鍋・しゃぶしゃぶ"> 鍋・しゃぶしゃぶ</label>
                 <label><input type="checkbox" class="genre-options" name="genre" value="和食"> 和食</label>
