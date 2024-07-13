@@ -243,16 +243,6 @@
         </select>
     </div> <br>
     <div class="form-group">
-        <label for="area">エリア:</label>
-        <select class="answer" name="area" id="area" required>
-            <option value="null">選択してください</option>
-            <option value="有楽町">有楽町</option>
-            <option value="勝どき">勝どき</option>
-            <option value="月島">月島</option>
-            <option value="豊洲">豊洲</option>
-        </select>
-    </div> <br>
-    <div class="form-group">
         <label for="tabaco">タバコ:</label>
         <select name="tabaco" id="tabaco" required>
             <option value="null">選択してください</option>
@@ -408,7 +398,6 @@
             const price_range = document.getElementById("price_range").value;
             const seat_type = document.getElementById("seat_type").value;
             const reservation_style = document.getElementById("reservation_style").value;
-            const area = document.getElementById("area").value;
             const tabaco = document.getElementById("tabaco").value;
             const spend_time = document.getElementById("spend_time").value;
             const drink = document.getElementById("drink").value;
@@ -426,7 +415,6 @@
                 price_range,
                 seat_type,
                 reservation_style,
-                area,
                 tabaco,
                 spend_time,
                 drink,
@@ -457,7 +445,6 @@
             document.getElementById("price_range").selectedIndex = 0;
             document.getElementById("seat_type").selectedIndex = 0;
             document.getElementById("reservation_style").selectedIndex = 0;
-            document.getElementById("area").selectedIndex = 0;
             document.getElementById("tabaco").selectedIndex = 0;
             document.getElementById("spend_time").selectedIndex = 0;
             document.getElementById("drink").selectedIndex = 0;
